@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Release Critical Packages - NixOS Release Wiki</title>
+        <title>What to do once appointed - NixOS Release Wiki</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="Home.html"><strong aria-hidden="true">1.</strong> Home</a></li><li class="chapter-item expanded "><a href="Release-Management-Team.html"><strong aria-hidden="true">2.</strong> Release Management Team</a></li><li class="chapter-item expanded "><a href="Release-Critical-Packages.html" class="active"><strong aria-hidden="true">3.</strong> Release Critical Packages</a></li><li class="chapter-item expanded "><a href="Release-Process.html"><strong aria-hidden="true">4.</strong> Release Process</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Once-Appointed.html"><strong aria-hidden="true">4.1.</strong> What to do once appointed</a></li><li class="chapter-item expanded "><a href="Feature-Freeze-Announcement.html"><strong aria-hidden="true">4.2.</strong> Feature Freeze announcement and pre-release cleanup</a></li><li class="chapter-item expanded "><a href="Zero-Hydra-Failures.html"><strong aria-hidden="true">4.3.</strong> ZERO Hydra Failures</a></li><li class="chapter-item expanded "><a href="Branch-Off.html"><strong aria-hidden="true">4.4.</strong> Branch-off</a></li><li class="chapter-item expanded "><a href="Release-Process-Walkthrough.html"><strong aria-hidden="true">4.5.</strong> Release Process Walkthrough</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Home.html"><strong aria-hidden="true">1.</strong> Home</a></li><li class="chapter-item expanded "><a href="Release-Management-Team.html"><strong aria-hidden="true">2.</strong> Release Management Team</a></li><li class="chapter-item expanded "><a href="Release-Critical-Packages.html"><strong aria-hidden="true">3.</strong> Release Critical Packages</a></li><li class="chapter-item expanded "><a href="Release-Process.html"><strong aria-hidden="true">4.</strong> Release Process</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Once-Appointed.html" class="active"><strong aria-hidden="true">4.1.</strong> What to do once appointed</a></li><li class="chapter-item expanded "><a href="Feature-Freeze-Announcement.html"><strong aria-hidden="true">4.2.</strong> Feature Freeze announcement and pre-release cleanup</a></li><li class="chapter-item expanded "><a href="Zero-Hydra-Failures.html"><strong aria-hidden="true">4.3.</strong> ZERO Hydra Failures</a></li><li class="chapter-item expanded "><a href="Branch-Off.html"><strong aria-hidden="true">4.4.</strong> Branch-off</a></li><li class="chapter-item expanded "><a href="Release-Process-Walkthrough.html"><strong aria-hidden="true">4.5.</strong> Release Process Walkthrough</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,44 +163,65 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#release-critical-packages" id="release-critical-packages">Release Critical Packages</a></h1>
-<p>These packages are deemed &quot;sufficiently complex&quot; in the package ecosystem to
-warrant treating them differently when stabilizing the package set leading up to
-a stable release. Generally, these packages will be closely related to <code>stdenv</code>
-or fundamental to NixOS (e.g. <code>systemd</code>). The implications of 
-<a href="https://github.com/NixOS/rfcs/blob/master/rfcs/0085-nixos-release-stablization.md">RFC 0085</a>
-are that these packages can not have breaking changes applied to them for six weeks
-leading up to a release date. This delay allows for changes in these packages to be
-sufficiently stabilized through usage on unstable, and allows for many staging
-iterations for these fixes to be applied.</p>
-<h2><a class="header" href="#list-of-release-critical-packages" id="list-of-release-critical-packages">List of Release Critical Packages:</a></h2>
+                        <h1><a class="header" href="#what-to-do-once-appointed" id="what-to-do-once-appointed">What to do once appointed</a></h1>
+<p>You have been appointed as the new Release Manager? Congratulations!
+This is a loose list of things you could start doing now.
+These tasks are not urgent but can be done as early as the appointment which should start to get you into your new role.
+While not urgent, these task need to be completed at some point before the release process starts.
+The release manager of the previous release will get in contact with you and help you along the way.</p>
+<p>This is not an actual part of the release process but rather preparations for starting the process.</p>
 <ul>
-<li><code>binutils</code></li>
-<li><code>gcc</code></li>
-<li><code>glibc</code></li>
-<li><code>llvm</code></li>
-<li><code>systemd</code></li>
+<li>Get in contact with the previous release manager and schedule a meeting</li>
+<li>Enter the <a href="https://matrix.to/#/#nixos-release-management:nixos.org">release management Matrix room</a></li>
+<li>Gain access to the <a href="https://github.com/orgs/NixOS/teams/nixos-release-managers/members">release-manager GitHub Team</a> by asking any of the existing people with &quot;Manager&quot; rights
+<ul>
+<li>Also make sure there are only people left as members who are managing this release</li>
 </ul>
-<h3><a class="header" href="#process-for-modifying-release-critical-packages" id="process-for-modifying-release-critical-packages">Process for Modifying Release Critical Packages</a></h3>
-<p>A release retrospective will take place after a release occured; one of the
-topics of discussion will be to modify the list of critical packages.
-Packages may be added if they caused a significant amount of pain, or packages
-may be removed if their updates cause little to no pain. Pain in this case
-is defined as causing failing builds, regressions in downstream packages,
-or regressions in user experience.</p>
+</li>
+<li>Ensure you have a <a href="https://hydra.nixos.org/">Hydra</a> account which will come in handy
+<ul>
+<li>Ensure that all release managers have at least <code>restart-jobs</code>, <code>bump-to-front</code>, and <code>cancel-build</code> privileges (see the top-right &quot;Preferences&quot; button). If they are missing, reach out to the Infrastructure team</li>
+</ul>
+</li>
+<li>Create a blockers <a href="https://github.com/orgs/NixOS/projects">project</a> in the organization for your release and the next one
+<ul>
+<li>Also close old ones while you're at it and consider migrating remaining open issues to the current project</li>
+</ul>
+</li>
+<li>You may also create a <a href="https://github.com/NixOS/nixpkgs/milestones">release milestone</a> in the nixpkgs project. This is not really used for the process but people from different subsystems often use it. If you don't create it, someone else will probably do so
+<ul>
+<li>Close milestones of previous releases</li>
+</ul>
+</li>
+<li>Figure out a codename for the next release (not the one you are releasing but the next one) and write it down somewhere for the branch-off</li>
+<li>Find someone to create a <a href="https://github.com/NixOS/nixos-artwork/tree/master/releases">logo</a> or create one yourself for the current release and PR it into the repository</li>
+<li>Check if the process can be improved this release
+<ul>
+<li>Find comments on the Discourse posts, GitHub issues, … of the previous release and see if the comments suggest doing something different this time</li>
+<li>Read the Discourse post of the last retrospective</li>
+<li>Check the Issues and Pull Requests of the <a href="https://github.com/NixOS/release-wiki">release-wiki repository</a></li>
+</ul>
+</li>
+<li>Figure out concrete dates for the week offsets outlined in schedule</li>
+<li>Publish a &quot;Let's have a great XX.XX release cycle!&quot; post on Discourse, outlining the plans for this release. <a href="https://discourse.nixos.org/t/lets-have-a-great-22-05-release-cycle/18357">Example of 22.05</a>
+<ul>
+<li>This links to the release schedule issue (<a href="https://github.com/NixOS/nixpkgs/issues/165792">22.05 example</a>) which must be created before posting to Discourse</li>
+</ul>
+</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="Release-Management-Team.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="Release-Process.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="Release-Process.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="Feature-Freeze-Announcement.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -212,13 +233,13 @@ or regressions in user experience.</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="Release-Management-Team.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="Release-Process.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="Release-Process.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="Feature-Freeze-Announcement.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Release Schedule - NixOS Release Wiki</title>
+        <title>Feature Freeze announcement and pre-release cleanup - NixOS Release Wiki</title>
         
         
 
@@ -95,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="Home.html"><strong aria-hidden="true">1.</strong> Home</a></li><li class="chapter-item expanded "><a href="Release-Process-Walkthrough.html"><strong aria-hidden="true">2.</strong> Release Process Walkthrough</a></li><li class="chapter-item expanded "><a href="Release-Management-Team.html"><strong aria-hidden="true">3.</strong> Release Management Team</a></li><li class="chapter-item expanded "><a href="Release-Schedule.html" class="active"><strong aria-hidden="true">4.</strong> Release Schedule</a></li><li class="chapter-item expanded "><a href="Zero-Hydra-Failures.html"><strong aria-hidden="true">5.</strong> ZERO Hydra Failures</a></li><li class="chapter-item expanded "><a href="GO-NO-GO-Meeting.html"><strong aria-hidden="true">6.</strong> GO / NO-GO Meeting</a></li><li class="chapter-item expanded "><a href="Release-Critical-Packages.html"><strong aria-hidden="true">7.</strong> Release Critical Packages</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="Home.html"><strong aria-hidden="true">1.</strong> Home</a></li><li class="chapter-item expanded "><a href="Release-Management-Team.html"><strong aria-hidden="true">2.</strong> Release Management Team</a></li><li class="chapter-item expanded "><a href="Release-Critical-Packages.html"><strong aria-hidden="true">3.</strong> Release Critical Packages</a></li><li class="chapter-item expanded "><a href="Release-Process.html"><strong aria-hidden="true">4.</strong> Release Process</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="Once-Appointed.html"><strong aria-hidden="true">4.1.</strong> What to do once appointed</a></li><li class="chapter-item expanded "><a href="Feature-Freeze-Announcement.html" class="active"><strong aria-hidden="true">4.2.</strong> Feature Freeze announcement and pre-release cleanup</a></li><li class="chapter-item expanded "><a href="Zero-Hydra-Failures.html"><strong aria-hidden="true">4.3.</strong> ZERO Hydra Failures</a></li><li class="chapter-item expanded "><a href="Branch-Off.html"><strong aria-hidden="true">4.4.</strong> Branch-off</a></li><li class="chapter-item expanded "><a href="Release-Process-Walkthrough.html"><strong aria-hidden="true">4.5.</strong> Release Process Walkthrough</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,14 +163,59 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#release-schedule" id="release-schedule">Release Schedule</a></h1>
+                        <h1><a class="header" href="#feature-freeze-announcement-and-pre-release-cleanup" id="feature-freeze-announcement-and-pre-release-cleanup">Feature Freeze announcement and pre-release cleanup</a></h1>
+<p>The feature freeze announcement should be done 8 weeks before the release to
+inform subsystem maintainers about the upcoming feature freeze and to discuss
+potential blockers in the respective subsystems. This announcement is done on
+GitHub (<a href="https://github.com/NixOS/nixpkgs/issues/167025">22.05
+example</a>). It's also a good
+idea to cross-post this to Discourse to raise awareness about the upcoming
+freeze (<a href="https://discourse.nixos.org/t/22-05-feature-freeze/18453">22.05
+example</a>).</p>
+<p>People and teams will be pinged in this issue. The list of people and teams
+pinged is generated from the teams list in nixpkgs. The script to generate
+the pings is: <code>./maintainers/feature-freeze-teams.pl</code> in nixpkgs. The script
+needs a GitHub username and a token to read the teams from the NixOS org.
+Instructions are provided as a comment in the script.</p>
+<p>You might need to add a comment that pings people again because GitHub seems
+to limit the amount of people that can be pinged per post.</p>
+<h2><a class="header" href="#pre-release-cleanup" id="pre-release-cleanup">Pre-release cleanup</a></h2>
+<p>The pre-release cleanup consists of multiple small cleanups to keep the release
+secure throughout its lifecycle while also maintaining some level of
+cleanliness.</p>
+<ul>
+<li>
+<p>Remove attributes that we know we will not be able to support,
+especially if there is a stable alternative. E.g. Check that our
+Linux kernels’ <a href="https://www.kernel.org/category/releases.html">projected
+end-of-life</a> are
+after our release projected end-of-life. Also check these package sets:</p>
+<ul>
+<li>MariaDB</li>
+<li>PHP</li>
+<li>PostgreSQL</li>
+</ul>
+</li>
+<li>
+<p>Attributes that can also be safely removed are packages that were broken for
+more than 2 years.</p>
+</li>
+<li>
+<p>Remove old aliases that have been <code>throw</code>s for at least one release. There is
+a script in the nixpkgs tree to do that:
+<code>maintainers/scripts/remove-old-aliases.py --file ./pkgs/top-level/aliases.nix --year 2019 --month 6</code>
+The conversion to <code>throw</code>s is usually done in one big Pull Request so you can
+remove all aliases from the date prior to this Pull Request. <a href="https://github.com/NixOS/nixpkgs/pull/161146">Example of the
+2022 throw conversion</a>.</p>
+</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="Release-Management-Team.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="Once-Appointed.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
@@ -188,7 +233,7 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="Release-Management-Team.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="Once-Appointed.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
